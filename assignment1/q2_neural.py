@@ -80,7 +80,6 @@ def sanity_check():
 
     gradcheck_naive(lambda params:
         forward_backward_prop(data, labels, params, dimensions), params)
-    print('OK')
 
 def your_sanity_checks():
     """

@@ -31,18 +31,27 @@ def gradcheck_naive(f, x):
     while not it.finished:   
         ix = it.multi_index   
         xitp = copy.deepcopy(x)
+
         xitp[ix] = xitp[ix] + h
+
 
         xitm = copy.deepcopy(x)
         xitm[ix] = xitm[ix] - h
+       
+        random.setstate(rndstate)          
+        fxitp = f(xitp)[0]
         
-        numgrad = (f(xitp)[0]-f(xitm)[0])/(2*h)
+        random.setstate(rndstate)
+        fxitm = f(xitm)[0]
+
+        numgrad = (fxitp - fxitm)/(2*h)
 
         # Compare gradients
         reldiff = abs(numgrad - grad[ix]) / max(1, abs(numgrad), abs(grad[ix]))
         if reldiff > 1e-5:
             print "your gradient: %f \t Numerical gradient: %f" % (
                 grad[ix], numgrad)
+        #else: print('OK')
 
         it.iternext() # Step to next dimension
 
