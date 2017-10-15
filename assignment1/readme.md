@@ -16,4 +16,4 @@ The link given to download the pretrained weights for question 4 in the original
 
 At this time, the following link works: https://github.com/nate-parrott/squad/raw/master/data/glove.6B.50d.txt.zip
 
-The get <code>get_datasets.sh</code> file of this repository has been modified accordingly.
+The <code>get_datasets.sh</code> file of this repository has been modified accordingly.
