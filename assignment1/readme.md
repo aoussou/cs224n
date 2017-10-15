@@ -8,4 +8,4 @@
 
 <p>3. The link given to download the pretrained weights for question 4 in the original get_datasets.sh file is broken.</p>
 <p>At this time, link works: https://github.com/nate-parrott/squad/raw/master/data/glove.6B.50d.txt.zip</p>
-<p>The get get_datasets.sh file of this repository has been modified accordingly.</p>
+<p>The get <code>get_datasets.sh</code> file of this repository has been modified accordingly.</p>
