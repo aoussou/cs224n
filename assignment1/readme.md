@@ -1,6 +1,6 @@
 <p><strong>NOTE</strong>:</p>
 
-<p>1. It seems like it is possible to make <code>q3_run.py</code> run about twice as fast by passing <code>gradOut</code> of <code>skipgram</code> to the <code>negSamplingCostAndGradient</code> of <code>q3_word2vec.py</code> instead of recreating them at every iteration of the context words. This is implemented in q3_word2vec_fast.py</p>
+<p>1. It seems like it is possible to make <code>q3_run.py</code> run about <i>twice as fast</i> by passing <code>gradOut</code> of <code>skipgram</code> to the <code>negSamplingCostAndGradient</code> of <code>q3_word2vec.py</code> instead of recreating them at every iteration of the context words. This is implemented in q3_word2vec_fast.py</p>
 
 <p>2. In question 3, the results using the code in this repo are different than the official solution. A number of other githubers get the same result (<a href="https://github.com/Twice22/CS224n-solutions/blob/master/Assigment%201/assignment1/q3_word_vectors.png">Twice22</a>, <a href="https://github.com/izarov/cs224n/blob/master/assignment1/q3_word_vectors.png">izarov</a> ), but others get different one (<a href="https://github.com/kvfrans/cs224-solutions/blob/master/a1/q3_word_vectors.png">kvfrans</a>, <a href="https://github.com/kingtaurus/cs224d/blob/master/assignment1/q3_word_vectors.png">kingtaurus</a>). The results obtained using the code in this repo are similar to those of <a href="https://github.com/yasiemir/cs224n/blob/master/assignment1/q3_word_vectors.png">yasiemir</a>.</p>
 
