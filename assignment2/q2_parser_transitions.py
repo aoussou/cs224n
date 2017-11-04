@@ -59,6 +59,7 @@ class PartialParse(object):
 
 
 def minibatch_parse(sentences, model, batch_size):
+
     """Parses a list of sentences in minibatches using a model.
 
     Args:
@@ -74,7 +75,7 @@ def minibatch_parse(sentences, model, batch_size):
                       Ordering should be the same as in sentences (i.e., dependencies[i] should
                       contain the parse for sentences[i]).
     """
-    
+
     ### YOUR CODE HERE    
     dependencies = []
     partial_parses = []
@@ -95,6 +96,25 @@ def minibatch_parse(sentences, model, batch_size):
             dependencies.append(minibatch[i].dependencies)                
             unfinished_parses.remove(minibatch[i])          
     ### END YOUR CODE  
+    
+ 
+
+##############################################################################
+# twice22 code (https://github.com/Twice22/CS224n-solutions/blob/master/Assigment%202/assignment2/q2_parser_transitions.py)
+# runs MUCH faster than anything else I have seen. Don't understand why though
+
+#    ### YOUR CODE HERE
+#    partial_parses = [PartialParse(s) for s in sentences]
+#    unfinished_parses = copy.copy(partial_parses)
+#
+#    while unfinished_parses:
+#    	transitions = model.predict(unfinished_parses[:batch_size])
+#    	for i in range(min(batch_size, len(unfinished_parses))):
+#    		unfinished_parses[i].parse_step(transitions[i])
+#    	unfinished_parses = [p for p in unfinished_parses if not(len(p.stack) == 1 and len(p.buffer) == 0)]
+#
+#    dependencies = [p.dependencies for p in partial_parses]
+#    ### END YOUR CODE  
 
     return dependencies
 
