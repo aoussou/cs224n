@@ -65,9 +65,18 @@ class RNNCell(tf.nn.rnn_cell.RNNCell):
             weight_initializer = tf.contrib.layers.xavier_initializer()
             W_x = tf.get_variable('W_x',shape =(self.input_size,self._state_size), initializer = weight_initializer)
             W_h = tf.get_variable('W_h',shape =(self._state_size,self._state_size), initializer = weight_initializer)
-            b = tf.get_variable('b', shape = self._state_size, initializer = tf.zeros)
-            new_state = tf.nn.sigmoid(tf.matmul(inputs,W_x) + tf.matmul(state,W_h) + b)
+            
+            # nayriz : WARNING  DO NOT DO  this:
+            #b = tf.get_variable('b', shape = (self._state_size), initializer = tf.zeros)
+            # you'll get this error: zeros() got an unexpected keyword argument 'partition_info'
+            #######     
+
+            b = tf.get_variable('b', initializer = tf.zeros((self._state_size,)))
+            new_state = tf.nn.sigmoid(tf.matmul(inputs,W_x) + tf.matmul(state,W_h) + b) 
             ### END YOUR CODE ###
+
+
+
         # For an RNN , the output and state are the same (N.B. this
         # isn't true for an LSTM, though we aren't using one of those in
         # our assignment)
@@ -118,7 +127,7 @@ def do_test(_):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Tests the RNN cell implemented as part of Q2 of Homework 3')
     subparsers = parser.add_subparsers()
-
+    
     command_parser = subparsers.add_parser('test', help='')
     command_parser.set_defaults(func=do_test)
 
