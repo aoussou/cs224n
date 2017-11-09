@@ -149,7 +149,8 @@ class SequencePredictor(Model):
             
             #tmp =  tf.clip_by_global_norm(gradients,self.config.max_grad_norm)            
             gradients, self.grad_norm = tf.clip_by_global_norm(gradients,self.config.max_grad_norm)
-        #self.grad_norm = tf.global_norm(gradients)
+        else: 
+            self.grad_norm = self.grad_norm = tf.global_norm(gradients)
         ### END YOUR CODE
        
         grads_and_vars = zip(gradients,variables)  
