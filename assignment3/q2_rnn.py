@@ -285,9 +285,9 @@ class RNNModel(NERModel):
         # Initialize state as vector of zeros.
         ### YOUR CODE HERE (~4-6 lines)
         weight_initializer = tf.contrib.layers.xavier_initializer()       
-        U = tf.Variable(weight_initializer((self.config.hidden_size,self.config.n_classes)))       
-        b_2 = tf.Variable(tf.zeros((self.config.n_classes)))   
-        
+        U = tf.get_variable('U',shape=(self.config.hidden_size,self.config.n_classes),
+                                 initializer = weight_initializer)        
+        b_2 = tf.get_variable('b_2', shape=(self.config.n_classes,), initializer=tf.constant_initializer(0.))     
         # nayriz : the first dimension should be the same as the batch_size, however,
         # if you hard code with self.config.batch_size, it won't be able to 
         # "create the function in the first place", because the dimension in that case
@@ -313,7 +313,7 @@ class RNNModel(NERModel):
                                 y_t = tf.matmul(o_drop_t,U) + b_2     
                                 preds.append(y_t)
                 
-                ### END YOUR CODE
+        ### END YOUR CODE
 
         # Make sure to reshape @preds here.
         ### YOUR CODE HERE (~2-4 lines)
@@ -624,3 +624,4 @@ if __name__ == "__main__":
         sys.exit(1)
     else:
         ARGS.func(ARGS)
+

@@ -69,9 +69,17 @@ class RNNCell(tf.nn.rnn_cell.RNNCell):
             # nayriz : WARNING  DO NOT DO  this:
             #b = tf.get_variable('b', shape = (self._state_size), initializer = tf.zeros)
             # you'll get this error: zeros() got an unexpected keyword argument 'partition_info'
+            
             #######     
 
-            b = tf.get_variable('b', initializer = tf.zeros((self._state_size,)))
+            # nayriz : WARNING DO NOT DO this:
+            # b = tf.get_variable('b', initializer = tf.zeros((self._state_size,)))
+            # you'll get this error: 
+            # ValueError: Initializer for variable rnn/RNNCell/b/ is from inside a control-flow construct, such as a loop or conditional. When creating a variable inside a loop or conditional, use a lambda as the initializer.
+            # although in other cases it could work (works in q2 but not q3)
+            
+            b = tf.get_variable('b', shape=(self._state_size,),initializer = tf.constant_initializer(0.))          
+
             new_state = tf.nn.sigmoid(tf.matmul(inputs,W_x) + tf.matmul(state,W_h) + b) 
             ### END YOUR CODE ###
 
