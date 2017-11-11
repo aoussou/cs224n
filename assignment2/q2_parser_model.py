@@ -24,10 +24,6 @@ class Config(object):
     batch_size = 2048
     n_epochs = 10
     lr = 0.001
-    
-    regularization = 1e-3 
-    # 1e-3 worked fine (no real change)
-    # not really needed any way, since using drop out
 
 class ParserModel(Model):
     """
@@ -157,13 +153,11 @@ class ParserModel(Model):
         h_drop = tf.nn.dropout(h,self.dropout_placeholder)
       
         pred = tf.matmul(h_drop,U) + b2
-        
-        reg = tf.nn.l2_loss(W) + tf.nn.l2_loss(U) 
 
         ### END YOUR CODE
-        return pred, reg
+        return pred
 
-    def add_loss_op(self, pred, reg):
+    def add_loss_op(self, pred):
         """Adds Ops for the loss function to the computational graph.
         In this case we are using cross entropy loss.
         The loss should be averaged over all examples in the current minibatch.
@@ -177,8 +171,8 @@ class ParserModel(Model):
             loss: A 0-d tensor (scalar)
         """
         ### YOUR CODE HERE
-        loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels = self.labels_placeholder, logits = pred)) 
-        + self.config.regularization*reg
+        loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(
+                labels = self.labels_placeholder, logits = pred)) 
         ### END YOUR CODE
         return loss
 
@@ -242,7 +236,7 @@ class ParserModel(Model):
         self.build()
 
 
-def main(debug=False):
+def main(debug=True):
     print 80 * "="
     print "INITIALIZING"
     print 80 * "="

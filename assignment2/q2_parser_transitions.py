@@ -77,24 +77,24 @@ def minibatch_parse(sentences, model, batch_size):
     """
 
     ### YOUR CODE HERE    
-    dependencies = []
-    partial_parses = []
-    for sentence in sentences:
-        partial_parses.append(PartialParse(sentence))
-     
-    unfinished_parses = copy.copy(partial_parses)
-    
-    while len(unfinished_parses) is not 0:
-   
-        bs = min(len(unfinished_parses),batch_size)
-        
-        minibatch = unfinished_parses[:bs]
-        for i in range(bs):
-            while ((len(minibatch[i].buffer) is not 0) or (len(minibatch[i].stack) is not 1) ) :
-
-                minibatch[i].parse_step(model.predict([minibatch[i]])[0] )
-            dependencies.append(minibatch[i].dependencies)                
-            unfinished_parses.remove(minibatch[i])          
+#    dependencies = []
+#    partial_parses = []
+#    for sentence in sentences:
+#        partial_parses.append(PartialParse(sentence))
+#     
+#    unfinished_parses = copy.copy(partial_parses)
+#    
+#    while len(unfinished_parses) is not 0:
+#   
+#        bs = min(len(unfinished_parses),batch_size)
+#        
+#        minibatch = unfinished_parses[:bs]
+#        for i in range(bs):
+#            while ((len(minibatch[i].buffer) is not 0) or (len(minibatch[i].stack) is not 1) ) :
+#
+#                minibatch[i].parse_step(model.predict([minibatch[i]])[0] )
+#            dependencies.append(minibatch[i].dependencies)                
+#            unfinished_parses.remove(minibatch[i])          
     ### END YOUR CODE  
     
  
@@ -104,16 +104,16 @@ def minibatch_parse(sentences, model, batch_size):
 # runs MUCH faster than anything else I have seen. Don't understand why though
 
 #    ### YOUR CODE HERE
-#    partial_parses = [PartialParse(s) for s in sentences]
-#    unfinished_parses = copy.copy(partial_parses)
-#
-#    while unfinished_parses:
-#    	transitions = model.predict(unfinished_parses[:batch_size])
-#    	for i in range(min(batch_size, len(unfinished_parses))):
-#    		unfinished_parses[i].parse_step(transitions[i])
-#    	unfinished_parses = [p for p in unfinished_parses if not(len(p.stack) == 1 and len(p.buffer) == 0)]
-#
-#    dependencies = [p.dependencies for p in partial_parses]
+    partial_parses = [PartialParse(s) for s in sentences]
+    unfinished_parses = copy.copy(partial_parses)
+
+    while unfinished_parses:
+    	transitions = model.predict(unfinished_parses[:batch_size])
+    	for i in range(min(batch_size, len(unfinished_parses))):
+    		unfinished_parses[i].parse_step(transitions[i])
+    	unfinished_parses = [p for p in unfinished_parses if not(len(p.stack) == 1 and len(p.buffer) == 0)]
+
+    dependencies = [p.dependencies for p in partial_parses]
 #    ### END YOUR CODE  
 
     return dependencies
